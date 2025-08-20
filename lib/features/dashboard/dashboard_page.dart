@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 
+// Import your feature pages
+import '../profile/profile_page.dart';
+import '../documents/documents_page.dart';
+import '../education/education_page.dart';
+import '../training/training_page.dart';
+import '../sea_service/sea_service_page.dart';
+
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
 
@@ -10,12 +17,28 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   int _currentIndex = 0;
 
+  final List<Widget> _pages =  [
+    ProfilePage(),
+    DocumentsPage(),
+    EducationPage(),
+    TrainingPage(),
+    SeaServicePage(),
+  ];
+
   final List<IconData> _navIcons = [
-    Icons.home_outlined,
-    Icons.description_outlined,
-    Icons.school_outlined,
-    Icons.menu_book_outlined,
-    Icons.person_outline,
+    Icons.person_outline,       // Profile
+    Icons.description_outlined, // Documents
+    Icons.menu_book_outlined,   // Education
+    Icons.school_outlined,      // Training
+    Icons.anchor_outlined,      // Sea Services
+  ];
+
+  final List<String> _navLabels = [
+    "Profile",
+    "Documents",
+    "Education",
+    "Training",
+    "Sea Services",
   ];
 
   @override
@@ -23,8 +46,8 @@ class _DashboardPageState extends State<DashboardPage> {
     return Scaffold(
       drawer: Drawer(
         child: ListView(
-          children: const [
-            DrawerHeader(
+          children: [
+            const DrawerHeader(
               decoration: BoxDecoration(color: Color(0xFF2E7D89)),
               child: Center(
                 child: Text(
@@ -33,22 +56,56 @@ class _DashboardPageState extends State<DashboardPage> {
                 ),
               ),
             ),
-            ListTile(leading: Icon(Icons.home), title: Text("Home")),
-            ListTile(leading: Icon(Icons.info), title: Text("About")),
-            ListTile(leading: Icon(Icons.contact_page), title: Text("Contact")),
+            ListTile(
+              leading: const Icon(Icons.home_outlined),
+              title: const Text("Home"),
+              onTap: () => Navigator.pushReplacementNamed(context, '/home'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.menu_book_outlined),
+              title: const Text("Courses"),
+              onTap: () => Navigator.pushNamed(context, '/courses'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.work_outline),
+              title: const Text("Services"),
+              onTap: () => Navigator.pushNamed(context, '/services'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.article_outlined),
+              title: const Text("Blog"),
+              onTap: () => Navigator.pushNamed(context, '/blog'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.contact_page_outlined),
+              title: const Text("Contact"),
+              onTap: () => Navigator.pushNamed(context, '/contact'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.info_outline),
+              title: const Text("About Us"),
+              onTap: () => Navigator.pushNamed(context, '/about'),
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.logout, color: Colors.red),
+              title: const Text("Logout"),
+              onTap: () {
+                // TODO: logout logic
+                Navigator.pushReplacementNamed(context, '/login');
+              },
+            ),
           ],
         ),
       ),
+
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
         iconTheme: const IconThemeData(color: Colors.black),
         title: Row(
           children: [
-            Image.asset(
-              'assets/logo.png',
-              height: 32,
-            ),
+            Image.asset('assets/logo.png', height: 32),
             const SizedBox(width: 8),
             const Text(
               "Hari Om Thalassic",
@@ -67,91 +124,39 @@ class _DashboardPageState extends State<DashboardPage> {
           const SizedBox(width: 16),
         ],
       ),
-      extendBodyBehindAppBar: true,
 
-      /// Background + content
-      body: Stack(
-        children: [
-          Image.asset(
-            'assets/ocean_background.png',
-            fit: BoxFit.cover,
-            width: double.infinity,
-            height: double.infinity,
-          ),
-          SingleChildScrollView(
-            padding: const EdgeInsets.only(top: 120),
-            child: Column(
+      /// Body swaps with nav index
+      body: _pages[_currentIndex],
+
+      /// Floating call & quick action buttons (visible only on home/dashboard)
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: _currentIndex == 0
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                /// Logo
-                SizedBox(
-                  height: 100,
-                  child: Image.asset('assets/logo.png'),
+                const SizedBox(width: 30), // spacing
+                FloatingActionButton(
+                  heroTag: "call",
+                  backgroundColor: Colors.green,
+                  onPressed: () {
+                    // TODO: call
+                  },
+                  child: const Icon(Icons.phone),
                 ),
-                const SizedBox(height: 24),
-
-                /// Title
-                Text(
-                  "Hari Om Thalassic",
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
+                FloatingActionButton(
+                  heroTag: "service",
+                  backgroundColor: const Color(0xFF2E7D89),
+                  onPressed: () {
+                    // TODO: service action
+                  },
+                  child: const Icon(Icons.work_outline),
                 ),
-                const SizedBox(height: 8),
-
-                /// Subtitle
-                Text(
-                  "A Complete Seafarer's Home",
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: Colors.white,
-                      ),
-                ),
-                const SizedBox(height: 16),
-
-                /// Tagline
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: Text(
-                    "Your trusted partner for maritime documentation, training, and job placements",
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Colors.white.withOpacity(0.9),
-                        ),
-                  ),
-                ),
+                const SizedBox(width: 30), // spacing
               ],
-            ),
-          ),
+            )
+          : null,
 
-          /// Floating call & quick action buttons
-          Positioned(
-            bottom: 80,
-            left: 16,
-            child: FloatingActionButton(
-              heroTag: "call",
-              backgroundColor: Colors.green,
-              onPressed: () {
-                // TODO: call action
-              },
-              child: const Icon(Icons.phone),
-            ),
-          ),
-          Positioned(
-            bottom: 80,
-            right: 16,
-            child: FloatingActionButton(
-              heroTag: "service",
-              backgroundColor: const Color(0xFF2E7D89),
-              onPressed: () {
-                // TODO: service action
-              },
-              child: const Icon(Icons.work_outline),
-            ),
-          ),
-        ],
-      ),
-
-      /// Bottom Nav Bar
+      /// Bottom navigation
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         selectedItemColor: const Color(0xFF2E7D89),
@@ -162,28 +167,13 @@ class _DashboardPageState extends State<DashboardPage> {
           });
         },
         type: BottomNavigationBarType.fixed,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(_navIcons[0]),
-            label: "Home",
+        items: List.generate(
+          _navIcons.length,
+          (index) => BottomNavigationBarItem(
+            icon: Icon(_navIcons[index]),
+            label: _navLabels[index],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(_navIcons[1]),
-            label: "Docs",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(_navIcons[2]),
-            label: "Training",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(_navIcons[3]),
-            label: "Blog",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(_navIcons[4]),
-            label: "Profile",
-          ),
-        ],
+        ),
       ),
     );
   }
