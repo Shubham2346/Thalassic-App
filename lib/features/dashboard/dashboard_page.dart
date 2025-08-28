@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 // Import your feature pages
+import '../dashboard/dashboard_overview_page.dart';
 import '../profile/profile_page.dart';
 import '../documents/documents_page.dart';
 import '../education/education_page.dart';
@@ -17,15 +18,17 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages =  [
-    ProfilePage(),
-    DocumentsPage(),
-    EducationPage(),
-    TrainingPage(),
-    SeaServicePage(),
+  final List<Widget> _pages = [
+    const DashboardOverviewPage(), // NEW first tab
+    const ProfilePage(),
+    const DocumentsPage(),
+    const EducationPage(),
+    const TrainingPage(),
+    const SeaServicePage(),
   ];
 
   final List<IconData> _navIcons = [
+    Icons.dashboard_outlined,   // Dashboard
     Icons.person_outline,       // Profile
     Icons.description_outlined, // Documents
     Icons.menu_book_outlined,   // Education
@@ -34,6 +37,7 @@ class _DashboardPageState extends State<DashboardPage> {
   ];
 
   final List<String> _navLabels = [
+    "Dashboard",
     "Profile",
     "Documents",
     "Education",
@@ -57,9 +61,14 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ),
             ListTile(
-              leading: const Icon(Icons.home_outlined),
+              leading: const Icon(Icons.dashboard_outlined),
               title: const Text("Home"),
-              onTap: () => Navigator.pushReplacementNamed(context, '/home'),
+              onTap: () {
+                Navigator.pop(context); // close drawer
+                setState(() {
+                  _currentIndex = 0;
+                });
+              },
             ),
             ListTile(
               leading: const Icon(Icons.menu_book_outlined),
@@ -91,7 +100,6 @@ class _DashboardPageState extends State<DashboardPage> {
               leading: const Icon(Icons.logout, color: Colors.red),
               title: const Text("Logout"),
               onTap: () {
-                // TODO: logout logic
                 Navigator.pushReplacementNamed(context, '/login');
               },
             ),
@@ -125,21 +133,21 @@ class _DashboardPageState extends State<DashboardPage> {
         ],
       ),
 
-      /// Body swaps with nav index
+      /// Body swaps based on nav index
       body: _pages[_currentIndex],
 
-      /// Floating call & quick action buttons (visible only on home/dashboard)
+      /// Floating buttons (only visible on Dashboard tab)
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: _currentIndex == 0
           ? Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const SizedBox(width: 30), // spacing
+                const SizedBox(width: 30),
                 FloatingActionButton(
                   heroTag: "call",
                   backgroundColor: Colors.green,
                   onPressed: () {
-                    // TODO: call
+                    // TODO: call action
                   },
                   child: const Icon(Icons.phone),
                 ),
@@ -151,7 +159,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   },
                   child: const Icon(Icons.work_outline),
                 ),
-                const SizedBox(width: 30), // spacing
+                const SizedBox(width: 30),
               ],
             )
           : null,

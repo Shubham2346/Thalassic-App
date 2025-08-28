@@ -1,7 +1,46 @@
 import 'package:flutter/material.dart';
 
+// Dummy data for featured articles
+final List<Map<String, String>> featured = [
+  {
+    "image": "assets/port-image.jpg",
+    "title": "Future of Maritime Technology",
+    "date": "Aug 2025",
+    "author": "Captain Smith",
+    "summary": "Exploring the latest trends in maritime innovation and technology."
+  },
+  {
+    "image": "assets/port-image.jpg",
+    "title": "Career Growth at Sea",
+    "date": "Jul 2025",
+    "author": "Chief Officer Jane",
+    "summary": "Tips and advice for advancing your maritime career."
+  },
+];
+
+// Dummy data for articles
+final List<Map<String, String>> articles = [
+  {
+    "image": "assets/port-image.jpg",
+    "title": "Green Shipping Initiatives",
+    "date": "Aug 2025",
+    "summary": "How the industry is moving towards sustainability."
+  },
+  {
+    "image": "assets/port-image.jpg",
+    "title": "Seafarer Wellness",
+    "date": "Jul 2025",
+    "summary": "Best practices for health and wellness at sea."
+  },
+];
+
+final TextEditingController searchController = TextEditingController();
+
 class BlogPage extends StatelessWidget {
+  const BlogPage({super.key});
+
   @override
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Blog Page")),
