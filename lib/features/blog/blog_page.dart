@@ -1,52 +1,6 @@
 import 'package:flutter/material.dart';
 
-class BlogPage extends StatefulWidget {
-  const BlogPage({super.key});
-
-  @override
-  State<BlogPage> createState() => _BlogPageState();
-}
-
-class _BlogPageState extends State<BlogPage> {
-  final searchController = TextEditingController();
-
-  final List<Map<String, String>> featured = [
-    {
-      "title": "Navigating Your Career Path: From Cadet to Captain",
-      "date": "15 May 2025",
-      "author": "Capt. Raj Sharma",
-      "tag": "Career Guidance",
-      "summary": "Essential milestones and strategies for advancing your maritime career through the ranks...",
-      "image": "assets/port-image.jpg",
-    },
-    {
-      "title": "Emerging Technologies Transforming Modern Shipping",
-      "date": "8 May 2025",
-      "author": "Dr. Ananya Patel",
-      "tag": "Industry Trends",
-      "summary": "How AI, blockchain, and green technologies are revolutionizing maritime operations...",
-      "image": "assets/port-image.jpg",
-    },
-  ];
-
-  final List<Map<String, String>> articles = List.generate(
-    6,
-    (i) => {
-      "title": "Navigating New Safety Regulations in 2025",
-      "date": "12 May 2025",
-      "tag": "Maritime Safety",
-      "summary":
-          "Comprehensive guide to the latest IMO safety regulations and their impact on maritime operations...",
-      "image": "assets/port-image.jpg",
-    },
-  );
-
-  @override
-  void dispose() {
-    searchController.dispose();
-    super.dispose();
-  }
-
+class BlogPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

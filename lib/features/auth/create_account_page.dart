@@ -117,7 +117,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
 
                         /// User type dropdown
                         DropdownButtonFormField<String>(
-                          value: _selectedUserType,
+                          initialValue: _selectedUserType,
                           hint: const Text("Select User type"),
                           items: _userTypes
                               .map((type) => DropdownMenuItem(
