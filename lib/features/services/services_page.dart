@@ -7,6 +7,27 @@ class ServicesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+
+      // ✅ Added AppBar with Back Button
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Color(0xFF2c5aa0)),
+          onPressed: () {
+            Navigator.pop(context); // go back to previous page
+          },
+        ),
+        title: const Text(
+          "Services",
+          style: TextStyle(
+            color: Color(0xFF2c5aa0),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
+      ),
+
       body: SingleChildScrollView(
         child: Column(
           children: const [
@@ -58,9 +79,10 @@ class ServicesSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
       child: Column(
         children: [
+          const SizedBox(height: 10),
           const Text(
             "Our Services",
             style: TextStyle(
@@ -70,7 +92,7 @@ class ServicesSection extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 40),
+          const SizedBox(height: 30),
           LayoutBuilder(
             builder: (context, constraints) {
               int crossAxisCount = constraints.maxWidth > 1000
