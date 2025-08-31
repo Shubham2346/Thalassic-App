@@ -34,6 +34,11 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  google_maps_flutter: ^2.6.0
+  carousel_slider: ^5.0.0
+  font_awesome_flutter: ^10.6.0
+  # video_player: ^2.8.1
+  # flutter_animate: ^4.5.0
 
 dev_dependencies:
   flutter_test:
@@ -64,7 +69,18 @@ flutter:
     - assets/google.png
     - assets/facebook.png 
     - assets/port-image.jpg 
-
+    - assets/icons/document.png
+    - assets/icons/job.png
+    - assets/icons/training.png
+    - assets/icons/ship.png
+    - assets/icons/support.png
+    - assets/icons/certificate.png
+    - assets/images/ocean_bg.jpg
+    - assets/images/team1.jpg
+    - assets/images/team2.jpg
+    - assets/images/team3.jpg
+    - assets/images/world_map.png
+    # - assets/videos/ocean_waves.mp4
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 

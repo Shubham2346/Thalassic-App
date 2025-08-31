@@ -24,4 +24,5 @@ final Map<String, WidgetBuilder> appRoutes = {
   '/about': (context) => AboutPage(),
   '/contact': (context) => ContactPage(),
   '/profile': (context) => ProfilePage(),
+  '/about': (context) => const AboutPage(),
 };
